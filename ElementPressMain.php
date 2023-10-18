@@ -22,7 +22,8 @@ class ElementPressMain{
         require_once( DASHPRESSPATH . 'addons/user/avatar.php' );
         require_once(DASHPRESSPATH  . 'addons/auth/login.php');
         require_once(DASHPRESSPATH . 'addons/widgets/weather/weatherWidget.php');
-    
+        require_once(DASHPRESSPATH . 'addons/woocommerce/userCardWidget.php');
+
         $widgets_manager->register( new UserName() );
         $widgets_manager->register( new ElementorPressEmailWidget() );
         //$widgets_manager->register( new ElementorPress_Firstname_Widget() );
@@ -30,6 +31,7 @@ class ElementPressMain{
         $widgets_manager->register( new ElementorPress_Avatar_Widget() );
         $widgets_manager->register( new ElementorPress_Login() );
         $widgets_manager->register( new ElementorPressWeatherWidget() );
+        $widgets_manager->register( new ElemenPressUserCardWidget() );
         
     
     }
