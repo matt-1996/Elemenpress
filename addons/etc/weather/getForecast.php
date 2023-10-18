@@ -7,22 +7,24 @@ class getForecast{
 
        public $result ;
        public $unit;
-
+       public $token;
        
     //    public $city;
-    public function __construct(string $city = 'shiraz,iran', $lang='en', $unit='us')  {
+    public function __construct(string $city = 'shiraz,iran', $lang='en', $unit='us', $token)  {
         // delete_transient('elementPressWeatherResult');
         // var_dump(get_transient('elementPressWeatherResult'));
     //     $request = wp_remote_get('https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/losangeles%2CUS/today?lang=fa&unitGroup=us&key=A3GY78PTSBEAEVT2YNRWV6PF4');
     //    $a = json_decode(wp_remote_retrieve_body( $request ));
     //    var_dump($a->currentConditions);
         $this->unit = $unit;
-        $is_cached = get_transient('elementPressWeatherResult');
+        $this->token = $token;
+        // $is_cached = get_transient('elementPressWeatherResult');
         // var_dump($is_cached->currentConditions->sunrise  );
-        if(!$is_cached || $is_cached->address !== $city ){
+        $a = 1;
+        if($a == 1){
         $curl = curl_init();
         curl_setopt_array($curl, array(
-            CURLOPT_URL => "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/" . rawurlencode($city) . "/today?lang=". $lang ."&unitGroup=" . $unit . "&key=A3GY78PTSBEAEVT2YNRWV6PF4",
+            CURLOPT_URL => "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/" . rawurlencode($city) . "/today?lang=". $lang ."&unitGroup=" . $unit . "&key=" . $token,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
