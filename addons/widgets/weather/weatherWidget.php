@@ -25,10 +25,14 @@ class ElementorPressWeatherWidget extends \Elementor\Widget_Base{
 
   public function getCities() : array{
 
-    $citiesPath = DASHPRESSPATH . 'assets/content/top-1000-cities.json';
+      $citiesPath = DASHPRESSPATH . 'assets/content/top-1000-cities.json';
+      
       $jFile = file_get_contents($citiesPath);
+
       $json = Json_decode($jFile);
+
       $cityArray = array();
+
       foreach($json as $jsons){
         $cityArray += [$jsons->name => $jsons->name];
         // array_push($cityArray,$jsons->name);
@@ -42,6 +46,30 @@ class ElementorPressWeatherWidget extends \Elementor\Widget_Base{
     protected function register_controls() {
 
       $citiesOption = $this->getCities();
+
+      $this->start_controls_section(
+        'API Token',
+        [
+          'label' => esc_html__( 'Api Token', 'elementor' ),
+          'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
+        ]
+      );
+
+
+      $this->add_control(
+        'Token',
+        [
+          'label' => esc_html__( 'API Token', 'textdomain' ),
+          'type' => \Elementor\Controls_Manager::TEXT,
+          'default' => esc_html__( 'Token', 'textdomain' ),
+          'placeholder' => esc_html__( 'Enter Your API token from visualcrossing.com', 'textdomain' ),
+        ]
+      );
+
+
+
+      $this->end_controls_section();
+
 
       $this->start_controls_section(
         'city',
@@ -128,9 +156,14 @@ class ElementorPressWeatherWidget extends \Elementor\Widget_Base{
 
     protected function render() {
       
-
       $ElementPressSettings = $this->get_settings_for_display();
-      $weatherClass = new getForecast($ElementPressSettings['City'],$ElementPressSettings['Lang'],$ElementPressSettings['Unit']);
+      // var_dump($ElementPressSettings['City']);
+
+      $weatherClass = new getForecast($ElementPressSettings['City'],
+      $ElementPressSettings['Lang'],
+      $ElementPressSettings['Unit'],
+      $ElementPressSettings['Token']
+    );
       // var_dump($ElementPressSettings['Lang']);
 		
     
